@@ -9,4 +9,16 @@ import 'babel-polyfill'
 // import './class/le-class.js'
 // import './class/le-promise.js'
 // import './class/le-iterator.js'
-import './class/le-generator.js'
+// import './class/le-generator.js'
+// import './class/le-decorator.js'
+// import './class/le-module.js'
+
+// import {A,test,Hello} from './class/le-module.js';
+// import * as leModule from './class/le-module.js';
+// console.log('A',A)
+// console.log('test',test)
+// console.log('Hello',Hello)
+// console.log(leModule.A)
+
+import leModule2 from './class/le-module.js'
+console.log(leModule2.A)

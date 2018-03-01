@@ -55,7 +55,33 @@
 
 	__webpack_require__(2);
 
-	__webpack_require__(329);
+	var _leModule = __webpack_require__(329);
+
+	var _leModule2 = _interopRequireDefault(_leModule);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log(_leModule2.default.A);
+	// import './class/le-num.js'
+	// import './class/le-arr.js'
+	// import './class/le-func.js'
+	// import './class/le-objExtend.js'
+	// import './class/le-symbol.js'
+	// import './class/le-setAndMap.js'
+	// import './class/le-proxy--Reflect.js'
+	// import './class/le-class.js'
+	// import './class/le-promise.js'
+	// import './class/le-iterator.js'
+	// import './class/le-generator.js'
+	// import './class/le-decorator.js'
+	// import './class/le-module.js'
+
+	// import {A,test,Hello} from './class/le-module.js';
+	// import * as leModule from './class/le-module.js';
+	// console.log('A',A)
+	// console.log('test',test)
+	// console.log('Hello',Hello)
+	// console.log(leModule.A)
 
 /***/ }),
 /* 2 */
@@ -9202,89 +9228,52 @@
 
 	'use strict';
 
-	{
-		// generator 的基本定义
-		var tell = /*#__PURE__*/regeneratorRuntime.mark(function tell() {
-			return regeneratorRuntime.wrap(function tell$(_context) {
-				while (1) {
-					switch (_context.prev = _context.next) {
-						case 0:
-							_context.next = 2;
-							return 'a';
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
-						case 2:
-							_context.next = 4;
-							return 'b';
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-						case 4:
-							return _context.abrupt('return', 'c');
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-						case 5:
-						case 'end':
-							return _context.stop();
-					}
-				}
-			}, tell, this);
-		});
+	// export let A = 123;
 
-		var k = tell();
-		console.log(k.next());
-		console.log(k.next());
-		console.log(k.next());
-		console.log(k.next());
-	}
-	{
-		var obj = {};
-		obj[Symbol.iterator] = /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-			return regeneratorRuntime.wrap(function _callee$(_context2) {
-				while (1) {
-					switch (_context2.prev = _context2.next) {
-						case 0:
-							_context2.next = 2;
-							return 1;
+	// export function test(){
+	// 	console.log('test')
+	// }
 
-						case 2:
-							_context2.next = 4;
-							return 2;
+	// export class Hello{
+	// 	test(){
+	// 		console.log('class')
+	// 	}
+	// }
 
-						case 4:
-							_context2.next = 6;
-							return 3;
+	var A = 123;
 
-						case 6:
-						case 'end':
-							return _context2.stop();
-					}
-				}
-			}, _callee, this);
-		});
-		var _iteratorNormalCompletion = true;
-		var _didIteratorError = false;
-		var _iteratorError = undefined;
+	var test = function test() {
+		console.log('test');
+	};
 
-		try {
-			for (var _iterator = obj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-				var value = _step.value;
-
-				console.log('value', value);
-			}
-		} catch (err) {
-			_didIteratorError = true;
-			_iteratorError = err;
-		} finally {
-			try {
-				if (!_iteratorNormalCompletion && _iterator.return) {
-					_iterator.return();
-				}
-			} finally {
-				if (_didIteratorError) {
-					throw _iteratorError;
-				}
-			}
+	var Hello = function () {
+		function Hello() {
+			_classCallCheck(this, Hello);
 		}
 
-		;
-	}
+		_createClass(Hello, [{
+			key: 'test',
+			value: function test() {
+				console.log('class');
+			}
+		}]);
+
+		return Hello;
+	}();
+
+	exports.default = {
+		A: A,
+		test: test,
+		Hello: Hello
+	};
 
 /***/ })
 /******/ ]);
