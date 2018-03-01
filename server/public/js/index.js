@@ -61,6 +61,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var syy = new _lottery2.default();
+	console.log(syy);
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -9206,19 +9209,197 @@
 
 	'use strict';
 
-	__webpack_require__(330);
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
-	__webpack_require__(332);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(333);
+	__webpack_require__(2);
 
-	__webpack_require__(334);
+	var _base = __webpack_require__(330);
+
+	var _base2 = _interopRequireDefault(_base);
+
+	var _timer = __webpack_require__(332);
+
+	var _timer2 = _interopRequireDefault(_timer);
+
+	var _calculate = __webpack_require__(333);
+
+	var _calculate2 = _interopRequireDefault(_calculate);
+
+	var _interface = __webpack_require__(334);
+
+	var _interface2 = _interopRequireDefault(_interface);
+
+	var _jquery = __webpack_require__(331);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var copyProperties = function copyProperties(target, source) {
+		var _iteratorNormalCompletion = true;
+		var _didIteratorError = false;
+		var _iteratorError = undefined;
+
+		try {
+			for (var _iterator = Reflect.ownKeys(source)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+				var key = _step.value;
+
+				if (key !== 'constructor' && key !== 'prototype' && key !== 'name') {
+					var desc = Object.getOwnPropertyDescriptor(source, key);
+					Object.defineProperty(target, key, desc);
+				}
+			}
+		} catch (err) {
+			_didIteratorError = true;
+			_iteratorError = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion && _iterator.return) {
+					_iterator.return();
+				}
+			} finally {
+				if (_didIteratorError) {
+					throw _iteratorError;
+				}
+			}
+		}
+	};
+
+	var mix = function mix() {
+		for (var _len = arguments.length, mixins = Array(_len), _key = 0; _key < _len; _key++) {
+			mixins[_key] = arguments[_key];
+		}
+
+		var Mix = function Mix() {
+			_classCallCheck(this, Mix);
+		};
+
+		var _iteratorNormalCompletion2 = true;
+		var _didIteratorError2 = false;
+		var _iteratorError2 = undefined;
+
+		try {
+			for (var _iterator2 = mixins[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+				var mixin = _step2.value;
+
+				copyProperties(Mix, mixin);
+				copyProperties(Mix.prototype, mixin.prototype);
+			}
+		} catch (err) {
+			_didIteratorError2 = true;
+			_iteratorError2 = err;
+		} finally {
+			try {
+				if (!_iteratorNormalCompletion2 && _iterator2.return) {
+					_iterator2.return();
+				}
+			} finally {
+				if (_didIteratorError2) {
+					throw _iteratorError2;
+				}
+			}
+		}
+
+		return Mix;
+	};
+
+	var Lottery = function (_mix) {
+		_inherits(Lottery, _mix);
+
+		function Lottery() {
+			var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'syy';
+			var cname = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '11选5';
+			var issue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '**';
+			var state = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '**';
+
+			_classCallCheck(this, Lottery);
+
+			var _this = _possibleConstructorReturn(this, (Lottery.__proto__ || Object.getPrototypeOf(Lottery)).call(this));
+
+			_this.name = name;
+			_this.cname = cname;
+			_this.issue = issue;
+			_this.state = state;
+			_this.el = '';
+			_this.omit = new Map();
+			_this.open_code = new Set();
+			_this.open_code_list = new Set();
+			_this.play_list = new Map();
+			_this.number = new Set();
+			_this.issue_el = '#curr_issue';
+			_this.countdown_el = '#countdown';
+			_this.state_el = '#state_el';
+			_this.cart_el = '.codeList';
+			_this.omit_el = '';
+			_this.cur_play = 'r5';
+			_this.initPlayList();
+			_this.initNumber();
+			_this.updateState();
+			_this.initEvent();
+			return _this;
+		}
+
+		_createClass(Lottery, [{
+			key: 'updateState',
+			value: function updateState() {
+				var self = this;
+				this.getState().then(function (res) {
+					self.issue = res.issue;
+					self.end_time = res.end_time;
+					self.state = res.state;
+					(0, _jquery2.default)(self.issue_el).text(res.issue);
+					self.countdown(res.end_time, function (time) {
+						(0, _jquery2.default)(self.countdown_el).html(time);
+					}, function () {
+						setTimeout(function () {
+							self.updateState();
+							self.getOmit(self.issue).then(function (res) {});
+							self.getOpenCode(self.issue).then(function (res) {});
+						}, 500);
+					});
+				});
+			}
+			/**
+	   * [initEvent]  初始化事件
+	   * @return {(type)} {description}
+	   */
+
+		}, {
+			key: 'initEvent',
+			value: function initEvent() {
+				var self = this;
+				(0, _jquery2.default)('#plays').on('click', 'li', self.changPlayNav.bind(self));
+				(0, _jquery2.default)('.boll-list').on('click', '.btn-boll', self.toggleCodeActive.bind(self));
+				(0, _jquery2.default)('#confirm_sel_code').on('click', self.addCode.bind(self));
+				(0, _jquery2.default)('.dxjo').on('click', 'li', self.assistHandle.bind(self));
+				(0, _jquery2.default)(".qkmethod").on('click', '.btn-middle', self.getRandomCode.bind(self));
+			}
+		}]);
+
+		return Lottery;
+	}(mix(_base2.default, _calculate2.default, _interface2.default, _timer2.default));
+
+	exports.default = Lottery;
 
 /***/ }),
 /* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -9238,13 +9419,13 @@
 		}
 
 		_createClass(Base, [{
-			key: 'initPalyList',
+			key: 'initPlayList',
 
 			/**
 	   * [initPlayList]  初始化玩法列表
 	   * @return {(type)} {description}
 	   */
-			value: function initPalyList() {
+			value: function initPlayList() {
 				this.play_list.set('r2', {
 					bonus: 6,
 					tip: '从 01~11 中任选 2 个或多个号码，所选号码与开奖号码任意两个号码相同，即中奖<em class="red"> 6 </em>元',
@@ -9285,7 +9466,7 @@
 			key: 'initNumber',
 			value: function initNumber() {
 				for (var i = 0; i < 12; i++) {
-					this.number.add('' + 1).padStart(2, '0');
+					this.number.add(('' + 1).padStart(2, '0'));
 				}
 			}
 		}, {
@@ -9385,7 +9566,7 @@
 				var self = this;
 				var $cur = (0, _jquery2.default)(e.currentTarget);
 				$cur.addClass('active').siblings().removeClass('active');
-				self.cur_play = $cur.attr('desc').toLocalLowerCase();
+				self.cur_play = $cur.attr('desc').toLocaleLowerCase();
 				(0, _jquery2.default)('#zx_sm span').html(self.play_list.get(self.cur_play).tip);
 				(0, _jquery2.default)('.boll-list .btn-boll').removeClass('btn-boll-active');
 				self.getCount();
@@ -9452,6 +9633,7 @@
 			value: function addCode() {
 				var self = this;
 				var $active = (0, _jquery2.default)('.boll-list .btn-boll-active').text().match(/\d{2}/g);
+				$active = $active ? $active : [];
 				var active = $active ? $active.length : 0;
 				var count = self.computeCount(active, self.cur_play);
 				if (count) {
@@ -9469,7 +9651,7 @@
 
 		}, {
 			key: 'addCodeItem',
-			value: function addCodeItem() {
+			value: function addCodeItem(code, type, typeName, count) {
 				var self = this;
 				var tpl = '\n\t \t<li codes="' + type + '|' + code + '" bonus="' + count * 2 + '" count="' + count + '">\n\t\t    <div class="code">\n\t\t        <b>' + typeName + (count > 1 ? '复式' : '单式') + '</b>\n\t\t        <b class="em">' + code + '</b>\n\t\t        [' + count + '\u6CE8\uFF0C<em class="code-list-money">' + count * 2 + '</em>]\n\t\t    </div>\n\t\t</li>\n\t \t';
 				(0, _jquery2.default)(self.cart_el).append(tpl);
@@ -9541,8 +9723,8 @@
 	  */
 
 		}, {
-			key: 'getRandomCodegetRandomCode',
-			value: function getRandomCodegetRandomCode(e) {
+			key: 'getRandomCode',
+			value: function getRandomCode(e) {
 				e.preventDefault();
 				var num = e.currentTarget.getAttribute('count');
 				var play = this.cur_play.match(/\d+/g)[0];
@@ -9559,6 +9741,8 @@
 
 		return Base;
 	}();
+
+	exports.default = Base;
 
 /***/ }),
 /* 331 */
@@ -19602,7 +19786,7 @@
 				var arr = new Array(play[1] * 1).fill(0);
 				var min = void 0,
 				    max = void 0;
-				if (play(0) === 'r') {
+				if (play[0] === 'r') {
 					var min_active = 5 - (11 - active);
 					if (min_active > 0) {
 						if (min_active - play[1]) {
@@ -19649,7 +19833,8 @@
 		}], [{
 			key: 'combine',
 			value: function combine(arr, size) {
-				var allResult = [](function f(arr, size, result) {
+				var allResult = [];
+				(function f(arr, size, result) {
 					var arrLen = arr.length;
 					if (size > arrLen) {
 						return;
@@ -19670,6 +19855,7 @@
 						}
 					}
 				})(arr, size, []);
+				return allResult;
 			}
 		}]);
 
@@ -19775,6 +19961,7 @@
 						},
 						dataType: 'json',
 						success: function success(res) {
+							console.log(res);
 							resolve.call(self, res);
 						},
 						error: function error(err) {
