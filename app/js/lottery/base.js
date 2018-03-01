@@ -4,7 +4,7 @@ class Base{
 	 * [initPlayList]  初始化玩法列表
 	 * @return {(type)} {description}
 	 */
-	initPalyList(){
+	initPlayList(){
 		this.play_list.set('r2',{
 			bonus:6,
 			tip:'从 01~11 中任选 2 个或多个号码，所选号码与开奖号码任意两个号码相同，即中奖<em class="red"> 6 </em>元',
@@ -48,7 +48,7 @@ class Base{
 	 */
 	 initNumber(){
 	 	for(let i=0;i<12;i++){
-	 		this.number.add(''+1).padStart(2,'0')
+	 		this.number.add((''+1).padStart(2,'0'))
 	 	}
 	 }
 
@@ -92,7 +92,7 @@ class Base{
 	 	let self = this
 	 	let $cur = $(e.currentTarget)
 	 	$cur.addClass('active').siblings().removeClass('active')
-	 	self.cur_play = $cur.attr('desc').toLocalLowerCase()
+	 	self.cur_play = $cur.attr('desc').toLocaleLowerCase()
 	 	$('#zx_sm span').html(self.play_list.get(self.cur_play).tip)
 	 	$('.boll-list .btn-boll').removeClass('btn-boll-active')
 	 	self.getCount()
@@ -150,6 +150,7 @@ class Base{
 	 addCode(){
 	 	let self = this
 	 	let $active = $('.boll-list .btn-boll-active').text().match(/\d{2}/g)
+	 	$active = $active?$active:[]
 	 	let active = $active?$active.length:0
 	 	let count = self.computeCount(active,self.cur_play)
 	 	if(count){
@@ -164,7 +165,7 @@ class Base{
 	 * @param {type} count        
 	 * @return {(type)} {description}
 	 */
-	 addCodeItem(){
+	 addCodeItem(code,type,typeName,count){
 	 	let self = this
 	 	const tpl = `
 	 	<li codes="${type}|${code}" bonus="${count*2}" count="${count}">
@@ -240,7 +241,7 @@ class Base{
 	 * [getRandomCode]  添加随机号码
 	 * @return {(type)} {description}
 	 */
-	 getRandomCodegetRandomCode(e){
+	 getRandomCode(e){
 	 	e.preventDefault()
 	 	let num = e.currentTarget.getAttribute('count')
 	 	let play = this.cur_play.match(/\d+/g)[0]

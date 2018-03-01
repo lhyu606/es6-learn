@@ -25,7 +25,7 @@ class Calculate{
 		const self = this
 		let arr = new Array(play[1]*1).fill(0)
 		let min, max
-		if(play(0) === 'r'){
+		if(play[0] === 'r'){
 			let min_active = 5 - (11 - active)
 			if(min_active>0){
 				if(min_active-play[1]){
@@ -67,7 +67,7 @@ class Calculate{
 	 * return {number}         计算注数
 	 */
 	static combine(arr,size){
-		let allResult = []
+		let allResult = [];
 		(function f(arr,size,result){
 			let arrLen = arr.length
 			if(size>arrLen){
@@ -89,6 +89,7 @@ class Calculate{
 				}
 			}
 		})(arr,size,[])
+		return allResult
 	}
 }
 
